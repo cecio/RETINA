@@ -1,0 +1,7 @@
+clean.bat
+.source.txt
+**/*.dbg
+**/*.sym
+**/*.vs
+**/*.prg
+**/*.sid
