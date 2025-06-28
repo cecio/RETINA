@@ -5,4 +5,5 @@ clean.bat
 **/*.vs
 **/*.prg
 **/*.sid
+**/*.bak
 HVSC_82-all-of-them*
