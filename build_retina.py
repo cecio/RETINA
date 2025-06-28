@@ -25,6 +25,9 @@ CLOCK_MAP = {
 }
 
 def read_sid_header(path):
+
+    file_size = path.stat().st_size
+
     with path.open("rb") as f:
         header = f.read(0x7C)              # grab enough to cover v4 fields
     if len(header) < 0x16:
@@ -52,6 +55,7 @@ def read_sid_header(path):
 
     return {
         "file_name"    : str(path),
+        "file_size"    : file_size,
         "magic"        : magic,
         "version"      : version,
         "load_address" : load_addr,
@@ -240,8 +244,9 @@ def main():
         if (info['init_address'] == 0x1000 and 
             info['play_address'] == 0x1003 and
             info['speed_mask'] == '$00000000' and
-            info['clock'] == 'PAL'):
-            valid_sid.append(info)
+            info['clock'] == 'PAL' and
+            info['file_size'] <= 0x1000):
+                valid_sid.append(info)
 
     sid = random.choice(valid_sid)
     print(f"   Using SID file {sid['file_name']}")
