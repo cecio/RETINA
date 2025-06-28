@@ -9,6 +9,11 @@ You can play it with keyboard, joystick or even paddles (I built one for this) f
 
 ## HowTo
 
+### Tools
+
+- `Java` runtime (able to run `java -jar`)
+- [Kick Assembler] (https://theweb.dk/KickAssembler/Main.html#frontpage) 
+
 
 ## References
 
