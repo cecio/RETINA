@@ -143,13 +143,7 @@ def parse_capa_output(output):
 def generate_asm(result):
     comment_separator = "//==============================================================================\n"
     
-    # FIXME: all lowercase, max 35 chars
-    #for rule in result['rules']:
-    #    print("\nRule Title:", rule['title'])
-    #    print("Scope:", rule['scope'])
-    #    print("Matches:", ", ".join(rule['matches']))
-
-    # FIXME: customize depending on malware
+    # TODO: customize depending on malware
     mdBckgrndColor1 = "DARK_GRAY"
     mdBckgrndColor2 = "YELLOW"
     featuresNum = len(result['rules'])
