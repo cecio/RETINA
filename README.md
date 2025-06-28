@@ -12,5 +12,5 @@ You can play it with keyboard, joystick or even paddles (I built one for this) f
 
 ## References
 
-[CAPA](https://github.com/mandiant/capa)
-[RetroGameDev](https://www.retrogamedev.com/)
+- [CAPA](https://github.com/mandiant/capa)
+- [RetroGameDev](https://www.retrogamedev.com/)
