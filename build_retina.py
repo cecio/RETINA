@@ -24,6 +24,21 @@ CLOCK_MAP = {
     3: "PAL&NTSC",
 }
 
+def get_valid_sid():
+    local_filename = hvsc_download_url.split('/')[-1]
+    extract_path = local_filename.replace('.rar', '')
+    download_and_uncompress(hvsc_download_url, local_filename, extract_path)
+    valid_sid = []
+    for sid_path in collect_sid_files(extract_path):
+        info = read_sid_header(sid_path)
+        if (info['init_address'] == 0x1000 and 
+            info['play_address'] == 0x1003 and
+            info['speed_mask'] == '$00000000' and
+            info['clock'] == 'PAL' and
+            info['file_size'] <= 0x1000):
+                valid_sid.append(info)
+    return valid_sid
+
 def read_sid_header(path):
 
     file_size = path.stat().st_size
@@ -229,20 +244,9 @@ def main():
     generate_asm(result)
     
     print("[+] Processing music")
-    local_filename = hvsc_download_url.split('/')[-1]
-    extract_path = local_filename.replace('.rar', '')
-    download_and_uncompress(hvsc_download_url, local_filename, extract_path)
-    valid_sid = []
-    for sid_path in collect_sid_files(extract_path):
-        info = read_sid_header(sid_path)
-        if (info['init_address'] == 0x1000 and 
-            info['play_address'] == 0x1003 and
-            info['speed_mask'] == '$00000000' and
-            info['clock'] == 'PAL' and
-            info['file_size'] <= 0x1000):
-                valid_sid.append(info)
-
+    valid_sid = get_valid_sid()
     sid = random.choice(valid_sid)
+    print(f"   Randomly choosing from {len(valid_sid)} SID files")
     print(f"   Using SID file {sid['file_name']}")
     patch_sid_reference(retina_src + "/gameData.asm", sid['file_name'])
 
