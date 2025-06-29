@@ -244,11 +244,15 @@ def main():
     generate_asm(result)
     
     print("[+] Processing music")
-    valid_sid = get_valid_sid()
-    sid = random.choice(valid_sid)
-    print(f"   Randomly choosing from {len(valid_sid)} SID files")
-    print(f"   Using SID file {sid['file_name']}")
-    patch_sid_reference(retina_src + "/gameData.asm", sid['file_name'])
+    if args.sid == None:
+        valid_sid = get_valid_sid()
+        sid = random.choice(valid_sid)
+        sid_file_name = sid['file_name']
+        print(f"   Randomly choosing from {len(valid_sid)} SID files")
+    else:
+        sid_file_name = args.sid
+    print(f"   Using SID file {sid_file_name}")
+    patch_sid_reference(retina_src + "/gameData.asm", sid_file_name)
 
     print("[+] Compiling R.E.T.I.N.A.")
     try:
