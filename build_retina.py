@@ -138,7 +138,7 @@ def parse_capa_output(output):
     result['md5'] = md5_match.group(1) if md5_match else None
 
     # Extract rules
-    rules_pattern = re.compile(r'([^\n]+)\nnamespace\s+[^\n]+\nscope\s+([^\n]+)\nmatches\s+((?:0x[0-9A-Fa-f]+\s*)+)', re.MULTILINE)
+    rules_pattern = re.compile(r'([^\n]+)\nnamespace\s+[^\n]+\nscope\s+([^\n]+)\nmatches\s+(.*(?:0x[0-9A-Fa-f]+\s*)+)', re.MULTILINE)
     rules = []
     for match in rules_pattern.finditer(output):
         title = match.group(1).strip().lower()
